@@ -117,3 +117,31 @@ vector<int> rabin_karp(string const& s, string const& t) {
 
 
 // CONTINUED 
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+const int mod = 1e9+7;
+
+long long mod_pow(long long base, long long exp, long long m) {
+    long long res = 1;
+    while (exp > 0) {
+        if (exp % 2 == 1) res = (res * base) % m;
+        base = (base * base) % m;
+        exp /= 2;
+    }
+    return res;
+}
+
+int computeHash(const string& s) {
+    int n = s.size();
+    int mul = 117;
+    long long ans = 0;
+    for (int i = 0; i < n; i++) {
+        long long val = (s[i] - 'a' + 1);
+        long long power = mod_pow(mul, n - i - 1, mod);
+        ans = (ans + (val * power) % mod) % mod;
+    }
+    return ans;
+}
